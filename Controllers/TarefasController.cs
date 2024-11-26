@@ -6,11 +6,11 @@ namespace TrilhaApiDesafio.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TarefaController : ControllerBase
+    public class TarefasController : ControllerBase
     {
         private readonly OrganizadorContext _context;
 
-        public TarefaController(OrganizadorContext context)
+        public TarefasController(OrganizadorContext context)
         {
             _context = context;
         }
@@ -27,7 +27,7 @@ namespace TrilhaApiDesafio.Controllers
             return Ok(tarefa);
         }
 
-        [HttpGet("ObterTodos")]
+        [HttpGet()]
         public IActionResult ObterTodos()
         {
             // TODO: Buscar todas as tarefas no banco utilizando o EF
