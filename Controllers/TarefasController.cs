@@ -5,7 +5,7 @@ using TrilhaApiDesafio.Models;
 namespace TrilhaApiDesafio.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/tarefas")]
     public class TarefasController : ControllerBase
     {
         private readonly OrganizadorContext _context;
@@ -15,7 +15,15 @@ namespace TrilhaApiDesafio.Controllers
             _context = context;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        public IActionResult ObterTodos()
+        {
+            // TODO: Buscar todas as tarefas no banco utilizando o EF
+            var tarefas = _context.Tarefas.ToList();
+            return Ok(tarefas);
+        }
+
+        [HttpGet("{id:int}")]
         public IActionResult ObterPorId(int id)
         {
             // TODO: Buscar o Id no banco utilizando o EF
@@ -27,15 +35,7 @@ namespace TrilhaApiDesafio.Controllers
             return Ok(tarefa);
         }
 
-        [HttpGet()]
-        public IActionResult ObterTodos()
-        {
-            // TODO: Buscar todas as tarefas no banco utilizando o EF
-            var tarefas = _context.Tarefas.ToList();
-            return Ok(tarefas);
-        }
-
-        [HttpGet("ObterPorTitulo")]
+        [HttpGet("titulo/{titulo}")]
         public IActionResult ObterPorTitulo(string titulo)
         {
             // TODO: Buscar  as tarefas no banco utilizando o EF, que contenha o titulo recebido por parâmetro
@@ -44,14 +44,14 @@ namespace TrilhaApiDesafio.Controllers
             return Ok(tarefas);
         }
 
-        [HttpGet("ObterPorData")]
+        [HttpGet("data/{data:datetime}")]
         public IActionResult ObterPorData(DateTime data)
         {
             var tarefa = _context.Tarefas.Where(x => x.Data.Date == data.Date);
             return Ok(tarefa);
         }
 
-        [HttpGet("ObterPorStatus")]
+        [HttpGet("status/{status}")]
         public IActionResult ObterPorStatus(EnumStatusTarefa status)
         {
             // TODO: Buscar  as tarefas no banco utilizando o EF, que contenha o status recebido por parâmetro
